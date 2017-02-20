@@ -1,0 +1,26 @@
+{
+  "name": "screeps",
+  "version": "1.0.0",
+  "description": "My Screeps bots",
+  "main": "main.js",
+  "dependencies": {
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.12.0",
+    "eslint-plugin-react": "^6.9.0",
+    "eslint-plugin-screeps": "^1.0.1",
+    "lodash": "^3.10.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RomanThieleFHNW/Screeps.git"
+  },
+  "author": "Me",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RomanThieleFHNW/Screeps/issues"
+  },
+  "homepage": "https://github.com/RomanThieleFHNW/Screeps#readme"
+}
