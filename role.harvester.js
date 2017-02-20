@@ -1,3 +1,6 @@
+const _ = require('lodash');
+var base = require('base.creep');
+
 var roleHarvester = {
 
 	/** @param {Creep} creep **/
@@ -17,9 +20,9 @@ var roleHarvester = {
                 }
             });
             if (targets.length > 0) {
-                if (creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
-            }
+                if (creep.transfer(targets[1], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(targets[1], { visualizePathStyle: { stroke: '#ffffff' } });
+                }
             }
         }
     }
