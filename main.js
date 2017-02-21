@@ -9,11 +9,18 @@ module.exports.loop = function () {
     // Game.spawns['bob'].createCreep([MOVE,WORK,CARRY],"h1",{role: "harvester"})
     // Game.spawns['bob'].createCreep([MOVE,WORK,CARRY],"b1",{role: "builder"})
     
+    // Delete memory (tutorial like)
+    for (var name in Memory.creeps) {
+        if (!Game.creeps[name]) {
+            delete Memory.creeps[name];
+            console.log('R.I.P.', name);
+        }
+    }
 
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 
     if(harvesters.length < 2) {
-        var newName = Game.spawns['bob'].createCreep([WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'harvester'});
+        var newName = Game.spawns['bob'].createCreep([WORK,CARRY,MOVE,MOVE,MOVE], undefined, {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
 	}else{
 
@@ -28,7 +35,6 @@ module.exports.loop = function () {
             var newName3 = Game.spawns['bob'].createCreep([WORK,CARRY,CARRY,MOVE,MOVE], undefined, {role: 'upgrader'});
             console.log('Spawning new upgrader: ' + newName3);
     	}
-
 	}	
 
     for (var name in Game.creeps) {
@@ -41,14 +47,6 @@ module.exports.loop = function () {
         }
         if (creep.memory.role == 'builder') {
             roleBuilder.run(creep);
-        }
-    }
-    
-    // Delete memory (tutorial like)
-    for (var name in Memory.creeps) {
-        if (!Game.creeps[name]) {
-            delete Memory.creeps[name];
-            console.log('R.I.P.', name);
         }
     }
 }
