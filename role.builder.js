@@ -1,7 +1,7 @@
 const _ = require('lodash');
-var base = require('base.creep');
+var base = require('role.base');
 
-var roleBuilder = {
+module.exports = {
 
     /** @param {Creep} creep **/
     run: function (creep) {
@@ -16,7 +16,7 @@ var roleBuilder = {
         }
 
         if (creep.memory.building) {
-            if (!base.buildClosestConstruction(creep)){
+            if (!base.buildClosestConstruction(creep)) {
                 base.transfereEnergyToClosestBuilding(creep);
             }
         } else {
@@ -24,5 +24,3 @@ var roleBuilder = {
         }
     }
 };
-
-module.exports = roleBuilder;

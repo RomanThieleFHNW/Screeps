@@ -1,5 +1,5 @@
 const _ = require('lodash');
-var base = require('base.creep');
+var base = require('role.base');
 
 var roleUpgrader = {
 
