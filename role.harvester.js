@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const C = require('constants');
 var base = require('role.base');
 
 module.exports = {

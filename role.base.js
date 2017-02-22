@@ -1,4 +1,5 @@
 const _ = require('lodash');
+const C = require('constants');
 
 module.exports = {
 
@@ -50,5 +51,32 @@ module.exports = {
 			} else { creep.say('🔨🏠') }
 		}
 		return target;
+	},
+
+	/**
+	* harvest nearest source
+	* @param {Creep} creep
+	* @returns {bool}
+	*/
+	harvestLeastPopulatetSource: function(creep) {
+		var sources = creep.room.find(FIND_SOURCES);
+
+		if (_.isUndefined(creep.memory.source)) {
+			var hs = _.filter(Game.creeps, (cr) => cr.memory.role == 'harvester' && !_.isUndefined(cr.memory.source));
+
+			if (!hs.length) {
+				creep.memory.source = 0;
+			} else {
+				var ss = _.groupBy(hs, memory.source);
+				creep.memory.source = ss.length % sources.length;
+			}
+		}
+
+		var source = sources[creep.memory.source];
+		if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+			creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } });
+		} else { creep.say('🗲🔋') }
+
+		return source;
 	}
 };
