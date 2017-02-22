@@ -1,6 +1,7 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
+const C = require('constants');
 const _ = require('lodash');
 
 module.exports.loop = function () {
@@ -17,8 +18,7 @@ module.exports.loop = function () {
         }
     }
 
-    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
-
+    var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == C.ROLES.HARVESTER);
     if (harvesters.length < 3) {
         var newName = Game.spawns['bob'].createCreep([WORK, WORK, CARRY, MOVE, MOVE], undefined, { role: 'harvester' });
         console.log('Spawning new harvester: ' + newName);
@@ -26,7 +26,7 @@ module.exports.loop = function () {
 
         var builder = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
         if (builder.length < 2) {
-            var newName2 = Game.spawns['bob'].createCreep([WORK, CARRY, CARRY, WORK, MOVE, WORK, MOVE], undefined, { role: 'builder' });
+            var newName2 = Game.spawns['bob'].createCreep([WORK, CARRY, CARRY, WORK, MOVE, MOVE], undefined, { role: 'builder' });
             console.log('Spawning new builder: ' + newName2);
         }
 

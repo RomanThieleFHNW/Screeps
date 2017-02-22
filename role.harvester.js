@@ -6,7 +6,7 @@ module.exports = {
 	/** @param {Creep} creep **/
 	run: function (creep) {
 		if (!(creep.carry.energy) || (creep.carry.energy < creep.carryCapacity && !creep.memory.building)) {
-			base.harvestClosestSource(creep);
+			base.harvestLeastPopulatetSource(creep);
 			creep.memory.building = false;
 		} else {
 			if (!base.transfereEnergyToClosestBuilding(creep)) {

@@ -20,7 +20,7 @@ module.exports = {
                 base.transfereEnergyToClosestBuilding(creep);
             }
         } else {
-            base.harvestClosestSource(creep);
+            base.getClosestEnergy(creep);
         }
     }
 };

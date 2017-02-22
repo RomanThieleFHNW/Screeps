@@ -17,6 +17,29 @@ module.exports = {
 	},
 
 	/**
+	* harvest nearest container or source
+	* @param {Creep} creep
+	* @returns {bool}
+	*/
+	getClosestEnergy(creep) {
+		var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+			filter: (i) => i.structureType == STRUCTURE_CONTAINER &&
+				i.store[RESOURCE_ENERGY] > 0 &&
+				_.sum(i.store) >= creep.carryCapacity
+		});
+		console.log(container);
+		console.log(_.sum(container.store));
+		if (container) {
+			if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+				creep.moveTo(container, { visualizePathStyle: { stroke: '#ffaa00' } });
+			} else { creep.say('💰') }
+		} else {
+			container = this.harvestClosestSource(creep);
+		}
+		return container;
+	},
+
+	/**
 	* transfer energy to the nearest building
 	* @param {Creep} creep
 	* @returns {bool}
@@ -58,17 +81,17 @@ module.exports = {
 	* @param {Creep} creep
 	* @returns {bool}
 	*/
-	harvestLeastPopulatetSource: function(creep) {
+	harvestLeastPopulatetSource(creep) {
 		var sources = creep.room.find(FIND_SOURCES);
 
-		if (_.isUndefined(creep.memory.source)) {
-			var hs = _.filter(Game.creeps, (cr) => cr.memory.role == 'harvester' && !_.isUndefined(cr.memory.source));
+		if (_.isUndefined(creep.memory.source) || _.isNull(creep.memory.source)) {
+			var hs = _.filter(Game.creeps, (cr) => cr.memory.role == C.ROLES.HARVESTER && !_.isNull(cr.memory.source));
 
 			if (!hs.length) {
-				creep.memory.source = 0;
+				creep.memory.source = sources.length - 1;
 			} else {
-				var ss = _.groupBy(hs, memory.source);
-				creep.memory.source = ss.length % sources.length;
+				console.log('hs length: ' + hs.length);
+				creep.memory.source = (hs.length + 1) % sources.length;
 			}
 		}
 
@@ -77,6 +100,7 @@ module.exports = {
 			creep.moveTo(source, { visualizePathStyle: { stroke: '#ffaa00' } });
 		} else { creep.say('🗲🔋') }
 
+		// console.log(creep.name + ' mines ' + creep.memory.source);
 		return source;
 	}
 };
