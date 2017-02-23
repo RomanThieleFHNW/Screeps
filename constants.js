@@ -11,7 +11,7 @@ module.exports = {
         GUARD: 'guard'
     },
 
-    // CREEPS: {
+    // CREEPS: [{
     //     HARVESTER_MK1: {
     //         ROLE: ROLES.HARVESTER,
     //         BLUEPRINT: [WORK, CARRY, MOVE]
@@ -56,6 +56,6 @@ module.exports = {
     //         ROLE: ROLES.GUARD,
     //         BLUEPRINT: [ATTACK, ATTACK, ATTACK, MOVE, MOVE, MOVE]
     //     }
-    // }
+    // }]
 
 };

@@ -27,8 +27,7 @@ module.exports = {
 				i.store[RESOURCE_ENERGY] > 0 &&
 				_.sum(i.store) >= creep.carryCapacity
 		});
-		console.log(container);
-		console.log(_.sum(container.store));
+
 		if (container) {
 			if (creep.withdraw(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
 				creep.moveTo(container, { visualizePathStyle: { stroke: '#ffaa00' } });
@@ -85,14 +84,13 @@ module.exports = {
 		var sources = creep.room.find(FIND_SOURCES);
 
 		if (_.isUndefined(creep.memory.source) || _.isNull(creep.memory.source)) {
-			var hs = _.filter(Game.creeps, (cr) => cr.memory.role == C.ROLES.HARVESTER && !_.isNull(cr.memory.source));
-
-			if (!hs.length) {
-				creep.memory.source = sources.length - 1;
-			} else {
-				console.log('hs length: ' + hs.length);
-				creep.memory.source = (hs.length + 1) % sources.length;
+			if (_.isUndefined(creep.room.memory.nextHarvestSource) || _.isNull(creep.room.memory.nextHarvestSource)) {
+				creep.room.memory.nextHarvestSource = 0;
 			}
+
+			console.log('Go harvest source ' + creep.room.memory.nextHarvestSource);
+			creep.memory.source = creep.room.memory.nextHarvestSource;
+			creep.room.memory.nextHarvestSource = ++creep.room.memory.nextHarvestSource % sources.length;
 		}
 
 		var source = sources[creep.memory.source];
